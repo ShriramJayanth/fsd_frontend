@@ -31,6 +31,17 @@ export default function Home() {
     setRoleErr("");
   };
 
+  const removeVals=()=>{
+    setDepartment("");
+    setRole("");
+    setEmail("");
+    setFirstName("");
+    setLastName("");
+    setEmployeeID("");
+    setPhoneNumber("");
+    setdoj("");
+  }
+
   const checkVals = () => {
     removeErr();
     let flag = true;
@@ -201,31 +212,51 @@ export default function Home() {
               className="h-[100%] w-[45%] bg-slate-300 text-black"
               onClick={() => {
                 removeErr();
-                setDepartment("");
-                setRole("");
-                setEmail("");
-                setFirstName("");
-                setLastName("");
-                setEmployeeID("");
-                setPhoneNumber("");
-                setdoj("");
+                removeVals();
               }}
             >
               RESET
             </button>
             <button
               className="h-[100%] w-[45%] bg-slate-300 text-black"
-              onClick={() => {
+              onClick={async() => {
                 if (checkVals()) {
-                  console.log({
-                    id: EmployeeID,
-                    firstName: FirstName,
-                    lastName: LastName,
-                    email: Email,
-                    role: Role,
-                    department: Department,
-                    dateOfJoining: doj,
+                  // console.log({
+                  //   id: EmployeeID,
+                  //   firstName: FirstName,
+                  //   lastName: LastName,
+                  //   email: Email,
+                  //   role: Role,
+                  //   department: Department,
+                  //   dateOfJoining: doj,
+                  // });
+                  const response = await fetch("http://localhost:3002/employee/add", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      id: EmployeeID,
+                      firstName: FirstName,
+                      lastName: LastName,
+                      email: Email,
+                      role: Role,
+                      department: Department,
+                      dateOfJoining: doj,
+                    }),
                   });
+                  if(!response.ok){
+                    alert("error in DB");
+                    return;
+                  }
+
+                  const result = await response.json();
+                  if(result.message=="User already exists"){
+                    alert("User already exists");
+                    return;
+                  }
+                  alert(result.message);
+                  removeVals();
                 }
               }}
             >
