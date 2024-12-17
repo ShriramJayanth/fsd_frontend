@@ -20,7 +20,7 @@ export default function Home() {
   const [dojErr, setdojErr] = useState("");
   const [RoleErr, setRoleErr] = useState("");
 
-  const removeErr=()=>{
+  const removeErr = () => {
     setFirstNameErr("");
     setLastNameErr("");
     setEmployeeIDErr("");
@@ -29,18 +29,53 @@ export default function Home() {
     setDepartmentErr("");
     setdojErr("");
     setRoleErr("");
-  }
+  };
 
-  const checkVals=()=>{
+  const checkVals = () => {
     removeErr();
-    if(FirstName.trim().length==0)setFirstNameErr("FirstName must not be empty");
-    if(LastName.trim().length==0)setLastNameErr("LastName must not be empty");
-    if(EmployeeID.trim().length==0)setEmployeeIDErr("LastName must not be empty");
-    if(Email.trim().length==0){
-      setEmailErr("Email must not be empty");
+    let flag = true;
+    if (FirstName.trim().length == 0) {
+      setFirstNameErr("FirstName must not be empty");
+      flag = false;
     }
-    if(PhoneNumber.trim().length==0)setPhoneNumberErr("Phone number must not be empty");
-  }
+    if (LastName.trim().length == 0) {
+      setLastNameErr("LastName must not be empty");
+      flag = false;
+    }
+    if (EmployeeID.trim().length == 0) {
+      setEmployeeIDErr("LastName must not be empty");
+      flag = false;
+    }
+    if (Email.trim().length == 0) {
+      setEmailErr("Email must not be empty");
+      flag = false;
+    } else if (!/\S+@\S+\.\S+/.test(Email)) {
+      setEmailErr("Enter a valid Email Id");
+      flag = false;
+    }
+    if (PhoneNumber.trim().length == 0) {
+      setPhoneNumberErr("Phone number must not be empty");
+      flag = false;
+    }
+    else if(!/^\d{10}$/.test(PhoneNumber)){
+      setPhoneNumberErr("Enter a valid phone number");
+      flag=false;
+
+    }
+    if (Department == "Choose a Department" || Department.length == 0) {
+      setDepartmentErr("Department must not be empty");
+      flag = false;
+    }
+    if (Role == "Choose a role" || Role.length == 0) {
+      setRoleErr("Department must not be empty");
+      flag = false;
+    }
+    if (doj.length == 0) {
+      setdojErr("DateOfJoining must not be empty");
+      flag = false;
+    }
+    return flag;
+  };
 
   return (
     <div className="h-[100vh] w-[100%] bg-gray-700">
@@ -58,67 +93,67 @@ export default function Home() {
           <div className="h-[7%] w-[80%]">
             <div>FirstName</div>
             <input
-            value={FirstName}
+              value={FirstName}
               className="h-[75%] w-[100%] rounded-md p-4 text-black"
               placeholder="FirstName"
               onChange={(e) => {
                 setFirstName(e.target.value);
               }}
             ></input>
-            <div>{FirstNameErr}</div>
+            <div className="text-red-400">{FirstNameErr}</div>
           </div>
           <div className="h-[7%] w-[80%]">
             <div>LastName</div>
             <input
-            value={LastName}
+              value={LastName}
               className="h-[75%] w-[100%] rounded-md p-4 text-black"
               placeholder="LastName"
               onChange={(e) => {
                 setLastName(e.target.value);
               }}
             ></input>
-            <div>{LastNameErr}</div>
+            <div className="text-red-400">{LastNameErr}</div>
           </div>
           <div className="h-[7%] w-[80%]">
             <div>EmployeeID</div>
             <input
-            value={EmployeeID}
+              value={EmployeeID}
               className="h-[75%] w-[100%] rounded-md p-4 text-black"
               placeholder="EmployeeID"
               onChange={(e) => {
                 setEmployeeID(e.target.value);
               }}
             ></input>
-            <div>{EmployeeIDErr}</div>
+            <div className="text-red-400">{EmployeeIDErr}</div>
           </div>
           <div className="h-[7%] w-[80%]">
             <div>Email</div>
             <input
-            value={Email}
+              value={Email}
               className="h-[75%] w-[100%] rounded-md p-4 text-black"
               placeholder="Email"
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
             ></input>
-            <div>{EmailErr}</div>
+            <div className="text-red-400">{EmailErr}</div>
           </div>
           <div className="h-[7%] w-[80%]">
             <div>PhoneNumber</div>
             <input
-            value={PhoneNumber}
+              value={PhoneNumber}
               className="h-[75%] w-[100%] rounded-md p-4 text-black"
               placeholder="PhoneNumber"
-              onChange={(e)=>{
+              onChange={(e) => {
                 setPhoneNumber(e.target.value);
               }}
             ></input>
-            <div>{PhoneNumberErr}</div>
+            <div className="text-red-400">{PhoneNumberErr}</div>
           </div>
           <div className="h-[9%] w-[80%]">
             <div>Department</div>
             <select
-            value={Department}
+              value={Department}
               className="h-[75%] w-[100%] rounded-md p-4 text-black"
               onChange={(e) => {
                 setDepartment(e.target.value);
@@ -129,12 +164,12 @@ export default function Home() {
               <option>Testing</option>
               <option>Design</option>
             </select>
-            <div>{DepartmentErr}</div>
+            <div className="text-red-400">{DepartmentErr}</div>
           </div>
           <div className="h-[7%] w-[80%] ">
             <div>DateOfJoining</div>
             <input
-            value={doj}
+              value={doj}
               type="date"
               max={new Date().toISOString().substring(0, 10)}
               className="h-[75%] w-[100%] rounded-md p-4 text-black"
@@ -143,12 +178,12 @@ export default function Home() {
                 setdoj(e.target.value);
               }}
             ></input>
-            <div>{dojErr}</div>
+            <div className="text-red-400">{dojErr}</div>
           </div>
           <div className="h-[9%] w-[80%] ">
             <div>Role</div>
             <select
-            value={Role}
+              value={Role}
               className="h-[75%] w-[100%] rounded-md p-4 text-black"
               onChange={(e) => {
                 setRole(e.target.value);
@@ -159,23 +194,41 @@ export default function Home() {
               <option>Manager</option>
               <option>TeamLead</option>
             </select>
-            <div>{RoleErr}</div>
+            <div className="text-red-400">{RoleErr}</div>
           </div>
           <div className="h-[7%] w-[80%] flex justify-between items-center ">
-            <button className="h-[100%] w-[45%] bg-slate-300 text-black" onClick={()=>{
-              setDepartment("");
-              setRole("")
-              setEmail("");
-              setFirstName("");
-              setLastName("");
-              setEmployeeID("");
-              setPhoneNumber("");
-              setdoj("");
-            }}>
+            <button
+              className="h-[100%] w-[45%] bg-slate-300 text-black"
+              onClick={() => {
+                removeErr();
+                setDepartment("");
+                setRole("");
+                setEmail("");
+                setFirstName("");
+                setLastName("");
+                setEmployeeID("");
+                setPhoneNumber("");
+                setdoj("");
+              }}
+            >
               RESET
             </button>
-            <button className="h-[100%] w-[45%] bg-slate-300 text-black" onClick={()=>{
-            }}>
+            <button
+              className="h-[100%] w-[45%] bg-slate-300 text-black"
+              onClick={() => {
+                if (checkVals()) {
+                  console.log({
+                    id: EmployeeID,
+                    firstName: FirstName,
+                    lastName: LastName,
+                    email: Email,
+                    role: Role,
+                    department: Department,
+                    dateOfJoining: doj,
+                  });
+                }
+              }}
+            >
               SUBMIT
             </button>
           </div>
@@ -184,13 +237,3 @@ export default function Home() {
     </div>
   );
 }
-
-// console.log({
-//   id:EmployeeID,
-//   firstName:FirstName,
-//   lastName:LastName,
-//   email:Email,
-//   role:Role,
-//   department:Department,
-//   dateOfJoining:doj,
-// })
