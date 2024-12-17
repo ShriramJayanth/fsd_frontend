@@ -230,7 +230,7 @@ export default function Home() {
                   //   department: Department,
                   //   dateOfJoining: doj,
                   // });
-                  const response = await fetch("http://localhost:3002/employee/add", {
+                  const response = await fetch("http://13.127.235.22:3002/employee/add", {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",
@@ -246,7 +246,7 @@ export default function Home() {
                     }),
                   });
                   if(!response.ok){
-                    alert("error in DB");
+                    alert("error in DB, please try again later");
                     return;
                   }
 
