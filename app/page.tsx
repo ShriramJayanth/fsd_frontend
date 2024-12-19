@@ -229,7 +229,7 @@ export default function Home() {
                   //   department: Department,
                   //   dateOfJoining: doj,
                   // });
-                  const response = await fetch("http://13.127.235.22:3002/employee/add", {
+                  const response = await fetch("http://13.126.171.179:3003/employee/add", {
                     method: "POST",
                     headers: {
                       "Content-Type": "application/json",
