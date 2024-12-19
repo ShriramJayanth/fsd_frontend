@@ -1,4 +1,5 @@
 "use client";
+import NavBar from "@/components/Navbar";
 import { useState } from "react";
 
 export default function Home() {
@@ -89,17 +90,10 @@ export default function Home() {
 
   return (
     <div className="h-[100vh] w-[100%] bg-gray-700">
-      <div className="h-[10%] w-[100%] flex">
-        <div className="h-[100%] w-[10%] bg-gray-700 flex items-center justify-center">
-          Add Employee
-        </div>
-        <div className="h-[100%] w-[10%] bg-gray-700 flex items-center justify-center">
-          View Employees
-        </div>
-      </div>
-      <hr></hr>
-      <div className="h-[90%] w-[100%] flex items-center justify-center">
-        <div className="h-[95%] w-[35%] outline-double flex flex-col items-center justify-around gap-4">
+      <NavBar currentPage="add"/>
+      <hr className="h-[1%]"></hr>
+      <div className="h-[89%] w-[100%] flex items-center justify-center">
+        <div className="h-[95%] w-[35%] outline flex flex-col items-center justify-around gap-4">
           <div className="h-[7%] w-[80%]">
             <div>FirstName</div>
             <input
